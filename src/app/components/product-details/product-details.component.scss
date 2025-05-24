@@ -1,0 +1,17 @@
+.align {
+    // align-items: center;
+    display: grid;
+    justify-items: center;
+}
+
+.price{
+    font-size:x-large;
+}
+
+.button-color-buyNow {
+    background-color: rgb(37, 37, 184);
+  }
+
+  .button-color-addToCart {
+    background-color: lightcoral;
+  }

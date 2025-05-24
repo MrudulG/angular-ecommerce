@@ -1,0 +1,72 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+    <div class="container-fluid" style="margin-top: 100px;">
+        <h1 class="d-flex justify-content-center mb-2 pb-2">Cart Items</h1>
+        <table *ngIf="cartItem.length>0"  class="table table-bordered">
+            <thead>
+              <tr>
+                <th width="10%"  scope="col">#</th>
+                <th width="40%" scope="col">Product Image</th>
+                <th width="30%" scope="col">Product Details</th>
+                <th width="20%" scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartItem; index as i">
+                <td>{{i+1}}</td>
+                <td>
+                    <img src="{{item.imageUrl}}" class="img-responsive" width="300px">
+                </td>
+                <td>
+                    <p>Name: {{item.name}}</p>
+                    <p>Price: {{item.unitPrice | currency: 'USD'}}</p>
+                </td>
+                <td>
+                   <div class="items">
+                        <label>Quantity:</label>
+                        <div class="row no-gutters" style="margin-top: 25px; margin-bottom: 50px">
+                            <div class="col">
+                                <button class="btn btn-primary btn-md" (click)="addQuantity(item)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="col">
+                                {{item.quantity}}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary btn-md" (click)="minusQuantity(item)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary btn-md" (click)="removeFromCart(item)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                   </div>
+                    
+                    <p>SubTotal: {{item.unitPrice*item.quantity | currency: 'USD'}}</p>
+                </td>
+              </tr>
+              <tr>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td>
+                    <p>Total Quantity: {{totalItems}}</p>
+                    <p>Total: {{totalAmount | currency: 'USD'}}</p>
+                    <button class="btn btn-primary" routerLink="/checkout">
+                       Checkout
+                    </button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div *ngIf="cartItem.length == 0" style="background-color: beige;">
+            <h4 class="d-flex justify-content-center mt-4 pt-2">Your Shopping cart is empty</h4>
+          </div>
+    </div>
+    </div>
+</div>

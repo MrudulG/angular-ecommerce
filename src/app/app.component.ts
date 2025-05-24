@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-ecommerce';
+  category_id = 1;
+
+  constructor(private route: ActivatedRoute){
+
+  }
+
+  ngOnInit(){
+    console.log("In app component");
+  }
+
+
+  
 }

@@ -1,0 +1,21 @@
+<div class="detail-section">
+<div class="container-fluid" style="margin-top: 100px;">
+  <div class="align">
+<h1>{{product.name}}</h1>
+<h3>{{product.sku}}</h3>
+<img src={{product.imageUrl}}>
+<div class="price"> Price: {{product.unitPrice | currency}}</div>
+<span class="mt-3">
+<p>{{product.description}}</p>
+</span>
+<span style="text-align: center;" class="mt-3 mb-3">
+  <button mat-stroked-button class="button-color-buyNow">Buy Now</button>
+  <button mat-stroked-button class="button-color-addToCart" (click)="addToCartHandler(product)">Add to Cart</button>
+</span>
+<a routerLink="/products">
+  Back to Product List
+</a>
+</div>
+</div>
+</div>
+

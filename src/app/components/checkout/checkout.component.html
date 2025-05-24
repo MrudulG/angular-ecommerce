@@ -1,0 +1,334 @@
+<div class="main-content page-m">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid" style="margin-top: 10px;">
+            <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+<!-- Customer form Group -->
+                <div formGroupName="customer" class="form-area">
+                    <h3>Customer</h3>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="firstName">First Name </label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="firstName" type="text" formControlName="firstName">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('customer.firstName')?.errors?.['required'] && checkoutForm.get('customer.firstName')?.touched">
+                                    First Name is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('customer.firstName')?.errors?.['minlength'] && checkoutForm.get('customer.firstName')?.touched">
+                                    First Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="lastName">Last Name </label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="lastName" type="text" formControlName="lastName">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('customer.lastName')?.errors?.['required'] && checkoutForm.get('customer.lastName')?.touched">
+                                    Last Name is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('customer.lastName')?.errors?.['minlength'] && checkoutForm.get('customer.lastName')?.touched">
+                                    Last Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="email">Email</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="email" type="text" formControlName="email">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('customer.email')?.errors?.['required'] && checkoutForm.get('customer.email')?.touched">
+                                    Email is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('customer.email')?.errors?.['pattern'] && checkoutForm.get('customer.email')?.touched">
+                                    Email must be a valid email address format
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div formGroupName="shippingAddress" class="form-area">
+                    <h3>Shipping Address</h3>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="country">Country</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                    <select id="country" type="text" formControlName="country" (change)="countryChangeEvent('shipping')
+                                        ">
+                                        <!-- <option>Select</option> -->
+                                        <option value="">Select Country</option>
+                                        <option *ngFor="let country of countryList">{{country.name}}</option>
+                                    </select>
+                            </div>
+                            <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.country')?.errors?.['required'] && checkoutForm.get('shippingAddress.country')?.touched">
+                                Country is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="street">Street</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="street" type="text" formControlName="street">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.street')?.errors?.['required'] && checkoutForm.get('shippingAddress.street')?.touched">
+                                    street is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.street')?.errors?.['minlength'] && checkoutForm.get('shippingAddress.street')?.touched">
+                                    street Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="city">City</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="city" type="text" formControlName="city">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.city')?.errors?.['required'] && checkoutForm.get('shippingAddress.city')?.touched">
+                                    city is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.city')?.errors?.['minlength'] && checkoutForm.get('shippingAddress.city')?.touched">
+                                    city Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="state">State</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select id="state" type="text" formControlName="state">
+                                    <option value="">Select state</option>
+                                    <option *ngFor="let state of shippingstateList" [ngValue]="state">{{state}}</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.state')?.errors?.['required'] && checkoutForm.get('shippingAddress.state')?.touched">
+                                State is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="zip">Zip Code</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="zip" type="number" formControlName="zipCode">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.zipCode')?.errors?.['required'] && checkoutForm.get('shippingAddress.zipCode')?.touched">
+                                    Zipcode is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('shippingAddress.zipCode')?.errors?.['minlength'] && checkoutForm.get('shippingAddress.zipCode')?.touched">
+                                    Zipcode must be 6 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-space">
+                    <label class="au-checkbox">
+                        <input type="checkbox"
+                               (change)="copyAddress($event)"
+                        >
+                        <span class="au-checkmark"></span>Billing Address is same as Shipping Address
+                    </label>
+                </div>
+                <div formGroupName="billingAddress" class="form-area">
+                    <h3>Billing Address</h3>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="country">Country</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select id="country" type="text" formControlName="country" (change)="countryChangeEvent('billing')
+                                        ">
+                                        <option vlaue="">Select</option>
+                                        <option *ngFor="let count of countryList" >{{count.name}}</option>
+                                    </select>
+                            </div>
+                            <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.country')?.errors?.['required'] && checkoutForm.get('billingAddress.country')?.touched">
+                                country is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="street">Street</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="street" type="text" formControlName="street">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.street')?.errors?.['required'] && checkoutForm.get('billingAddress.street')?.touched">
+                                    street is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.street')?.errors?.['minlength'] && checkoutForm.get('billingAddress.street')?.touched">
+                                    street Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="city">City</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="city" type="text" formControlName="city">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.city')?.errors?.['required'] && checkoutForm.get('billingAddress.city')?.touched">
+                                    city is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.city')?.errors?.['minlength'] && checkoutForm.get('billingAddress.city')?.touched">
+                                    city Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="state">State</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select id="state" type="text" formControlName="state">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let state of billingstateList" [ngValue]="state">{{state}}</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.state')?.errors?.['required'] && checkoutForm.get('billingAddress.state')?.touched">
+                                state is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="zip">Zip Code</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="zip" type="text" formControlName="zipCode">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.zipCode')?.errors?.['required'] && checkoutForm.get('billingAddress.zipCode')?.touched">
+                                    zipCode is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('billingAddress.zipCode')?.errors?.['minlength'] && checkoutForm.get('billingAddress.zipCode')?.touched">
+                                    zipCode must be 6 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div formGroupName="cardInfo" class="form-area">
+                    <h3>Card Details</h3>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="cardType">Card Type</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select id="cardType" formControlName="cardType">
+                                    <option>VISA</option>
+                                    <option>Mastercard</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.cardType')?.errors?.['required'] && checkoutForm.get('cardInfo.cardType')?.touched">
+                                Card type is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="nameOnCard">Name On Card</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="nameOnCard" type="text" formControlName="nameOnCard">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['required'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                    Last Name is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['minlength'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                    Last Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="cardNumber">Card Number</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="cardNumber" type="text" formControlName="cardNumber">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['required'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                    Last Name is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['minlength'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                    Last Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="cvv">CVV</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input id="cvv" type="text" formControlName="cvv">
+                            </div>
+                            <div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['required'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                    Last Name is required
+                                </div>
+                                <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['minlength'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                    Last Name must be at least 2 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="expiryYear">Expiry Year</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select id="expiryYear" type="text" formControlName="expiryYear" (change)="yearChangeEvent()">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let year of creditCardYear">{{year}}</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['required'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                Last Name is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="expiryMonth">Expiry Month</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select id="expiryMonth" type="text" formControlName="expiryMonth">
+                                    <!-- <option>Select</option> -->
+                                    <option *ngFor="let month of creditCardMonths">{{month}}</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-danger mt-1" *ngIf="checkoutForm.get('cardInfo.lastName')?.errors?.['required'] && checkoutForm.get('cardInfo.lastName')?.touched">
+                                Last Name is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-area">
+                    <h3>Review your order</h3>
+
+                    <p>Total Quantity: {{totalQuantity}}</p>
+                    <p>Free Shipping</p>
+                    <p>Total Price: {{totalPrice | currency: 'USD'}}</p>
+                </div>
+                <!-- Submit button  -->
+                 <div class="text-center">
+                    <p>Complete the form to enable button.</p>
+                    <button type="submit" class="btn btn-info">Purchase</button>
+                 </div>
+            </form>
+        </div>
+    </div>
+</div>

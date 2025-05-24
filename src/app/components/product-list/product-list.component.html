@@ -1,0 +1,58 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3" style="height: 450px;" *ngFor="let product of products">
+                    <mat-card class="example-card" appearance="outlined">
+                        <mat-card-header>
+                            <div mat-card-avatar style="background-image: url('assets/images/products/images.jfif')"
+                                class="example-header-image"></div>
+                            <mat-card-title style="font-size: 12px; text-align: center;">
+                                <a routerLink="/products/{{product.id}}" routerLinkActive="active-link">
+                                    {{product.name}}
+                                </a>
+                            </mat-card-title>
+                            <mat-card-subtitle style="font-size: 10px; text-align: center;">
+                                <a routerLink="/products/{{product.id}}" routerLinkActive="active-link">
+                                    {{product.sku}}
+                                </a>
+                            </mat-card-subtitle>
+                        </mat-card-header>
+                        <a routerLink="/products/{{product.id}}">
+                            <img style="text-align: center;" mat-card-image src={{product.imageUrl}}
+                                alt="Photo of a Shiba Inu">
+                        </a>
+                        <mat-card-content>
+                            <!-- <p>
+                                {{product.description}} at just {{product.unitPrice}}
+                            </p> -->
+                            <div class="price">{{product.unitPrice | currency}}</div>
+                        </mat-card-content>
+                        <mat-card-actions style="text-align: center;">
+                            <button mat-stroked-button class="button-color-buyNow">Buy Now</button>
+                            <button mat-stroked-button class="button-color-addToCart" (click)="addToCartHandler(product)">Add to Cart</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+                <!-- No products found -->
+                <div *ngIf="products?.length==0" class="alert alert-warning md-12" role="alert">
+                    No Products found
+                </div>
+            </div>
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6 offset-6">
+                        <mat-paginator #paginator class="demo-paginator"
+                            (page)="handlePageEvent($event)"
+                            [length]="length" [pageSize]="pageSize" [disabled]="disabled"
+                            [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
+                            [pageIndex]="pageIndex" aria-label="Select page">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END MAIN CONTENT-->
