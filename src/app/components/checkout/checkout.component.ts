@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { mapTo } from 'rxjs';
 import { CartItem } from 'src/app/common/cart-item';
@@ -19,7 +19,7 @@ import { InfoService } from 'src/app/service/info.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  checkoutForm!: FormGroup;
+  checkoutForm!: UntypedFormGroup;
   totalQuantity = 0;
   totalPrice = 0;
   cartItem: CartItem[] = [];
@@ -30,7 +30,7 @@ export class CheckoutComponent implements OnInit {
   shippingstateList: any = [];
   storage : Storage = sessionStorage;
 
-  constructor(private formBuilder : FormBuilder,
+  constructor(private formBuilder : UntypedFormBuilder,
     private cartStatusService: CartStatusService,
     private formService: CheckoutFormService,
     private infoService: InfoService,
@@ -46,9 +46,9 @@ export class CheckoutComponent implements OnInit {
     const theEmail = this.storage.getItem('email')!;
     this.checkoutForm = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl ('Mehul', [Validators.required, Validators.minLength(2)]),
-        lastName: new FormControl ('Shah', [Validators.required, Validators.minLength(2)]),
-        email: new FormControl (theEmail , [Validators.required, Validators.pattern('^[a-z0-9.%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+        firstName: new UntypedFormControl ('Mehul', [Validators.required, Validators.minLength(2)]),
+        lastName: new UntypedFormControl ('Shah', [Validators.required, Validators.minLength(2)]),
+        email: new UntypedFormControl (theEmail , [Validators.required, Validators.pattern('^[a-z0-9.%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       }),
       shippingAddress: this.formBuilder.group({
         country: ['Brazil', Validators.required],
