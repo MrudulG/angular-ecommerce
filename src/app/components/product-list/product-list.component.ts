@@ -1,6 +1,6 @@
 import { Component, Inject, inject, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/service/product.service';

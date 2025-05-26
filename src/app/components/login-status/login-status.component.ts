@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { OKTA_AUTH, OktaAuthStateService } from '@okta/okta-angular';
 import OktaAuth from '@okta/okta-auth-js';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from 'src/app/service/auth.service';
 

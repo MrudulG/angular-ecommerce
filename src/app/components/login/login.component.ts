@@ -5,7 +5,7 @@ import OktaAuth from '@okta/okta-auth-js';
 import OktaSignIn from '@okta/okta-signin-widget';
 import myAppConfig from 'src/app/config/my-app-config';
 import { AuthService } from 'src/app/service/auth.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-login',
