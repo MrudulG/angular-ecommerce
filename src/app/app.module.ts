@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from  '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from  '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import {LegacyPageEvent as PageEvent, MatLegacyPaginatorModule as MatPaginatorModule} from '@angular/material/legacy-paginator';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,46 +34,36 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    ProductListComponent,
-    MenuListComponent,
-    SearchBarComponent,
-    ProductDetailsComponent,
-    CartStatusComponent,
-    CartDetailComponent,
-    CheckoutComponent,
-    LoginComponent,
-    LoginStatusComponent,
-    OrderHistoryComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NoopAnimationsModule,
-    MatCardModule,
-    MatButtonModule,
-    HttpClientModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    MatTableModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    OktaAuthModule,
-    FormsModule,
-    // MatFormFieldModule,
-    
-  ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [ProductService, 
-    {provide: OKTA_CONFIG, useValue: { oktaAuth}},
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    {
-      provide: MatDialogRef,
-      useValue: {}
-    }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        ProductListComponent,
+        MenuListComponent,
+        SearchBarComponent,
+        ProductDetailsComponent,
+        CartStatusComponent,
+        CartDetailComponent,
+        CheckoutComponent,
+        LoginComponent,
+        LoginStatusComponent,
+        OrderHistoryComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        NoopAnimationsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        MatTableModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        OktaAuthModule,
+        FormsModule], providers: [ProductService,
+        { provide: OKTA_CONFIG, useValue: { oktaAuth } },
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        {
+            provide: MatDialogRef,
+            useValue: {}
+        }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
